@@ -55,7 +55,7 @@ func (app *App) StartFile(filePath string) error {
 				CronRestart:    p.CronRestart,
 			})
 			if err != nil {
-				app.logger.Fatal().Msgf("Error while starting process [%s]", p.Name)
+				app.logger.Fatal().Msgf("Error while starting process [%s] %v", p.Name, err)
 			}
 			app.AddProcess(process)
 		} else {
@@ -76,7 +76,7 @@ func (app *App) StartFile(filePath string) error {
 				CronRestart:    p.CronRestart,
 			})
 			if err != nil {
-				app.logger.Fatal().Msgf("Error while starting process [%s]", p.Name)
+				app.logger.Fatal().Msgf("Error while starting process [%s] %v", p.Name, err)
 			}
 			newProcess.Id = process.Id
 			app.StartProcess(newProcess)
