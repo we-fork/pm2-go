@@ -12,6 +12,11 @@ import (
 	"github.com/rs/zerolog"
 )
 
+const (
+	// avoid using 50051 as it is common and widely used
+	daemonPort = 60061
+)
+
 func isDaemonRunning() bool {
 	directory := utils.GetMainDirectory()
 	// check if daemon.pid exists
@@ -108,10 +113,10 @@ func (app *App) SpawnDaemon() {
 			return
 		}
 
-		// wait for 50051 port to open with a timeout of 2s
+		// wait for daemon port to open with a timeout of 2s
 		found := false
 		for i := 0; i < 200; i++ {
-			if utils.IsPortOpen(50051) {
+			if utils.IsPortOpen(daemonPort) {
 				found = true
 				break
 			}
@@ -127,6 +132,6 @@ func (app *App) SpawnDaemon() {
 	}
 
 	if wasReborn() {
-		server.New(50051)
+		server.New(daemonPort)
 	}
 }

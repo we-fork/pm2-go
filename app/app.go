@@ -15,7 +15,7 @@ type App struct {
 
 func New() *App {
 	logger := utils.NewLogger()
-	client, err := client.New(50051)
+	client, err := client.New(daemonPort)
 	if err != nil {
 		logger.Fatal().Err(err).Msg("Failed to create client")
 	}
